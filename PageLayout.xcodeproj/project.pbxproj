@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		492C25BE1323164100325437 /* UIFont+CoreTextExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 492C25BD1323164100325437 /* UIFont+CoreTextExtensions.m */; };
 		49AD609713218F5D00D620D3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49AD609613218F5D00D620D3 /* UIKit.framework */; };
 		49AD609913218F5D00D620D3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49AD609813218F5D00D620D3 /* Foundation.framework */; };
 		49AD609B13218F5D00D620D3 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49AD609A13218F5D00D620D3 /* CoreGraphics.framework */; };
@@ -14,20 +15,35 @@
 		49AD60A413218F5D00D620D3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 49AD60A313218F5D00D620D3 /* main.m */; };
 		49AD60A713218F5D00D620D3 /* PageLayoutAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 49AD60A613218F5D00D620D3 /* PageLayoutAppDelegate.m */; };
 		49AD60AA13218F5D00D620D3 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49AD60A813218F5D00D620D3 /* MainWindow.xib */; };
+		49AD60B11321918600D620D3 /* Story.plist in Resources */ = {isa = PBXBuildFile; fileRef = 49AD60B01321918600D620D3 /* Story.plist */; };
+		49AD60B4132192C400D620D3 /* StoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49AD60B3132192C400D620D3 /* StoryViewController.m */; };
+		49AD60B71321939400D620D3 /* DNTextFrameView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49AD60B61321939400D620D3 /* DNTextFrameView.m */; };
+		49AD60BA132193C900D620D3 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49AD60B9132193C900D620D3 /* CoreText.framework */; };
+		49AD60C31321946300D620D3 /* DNTextLayoutManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 49AD60C21321946300D620D3 /* DNTextLayoutManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		492C25BC1323164100325437 /* UIFont+CoreTextExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+CoreTextExtensions.h"; sourceTree = "<group>"; };
+		492C25BD1323164100325437 /* UIFont+CoreTextExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+CoreTextExtensions.m"; sourceTree = "<group>"; };
 		49AD609213218F5D00D620D3 /* PageLayout.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PageLayout.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		49AD609613218F5D00D620D3 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		49AD609813218F5D00D620D3 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		49AD609A13218F5D00D620D3 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		49AD609E13218F5D00D620D3 /* PageLayout-Info.plist */ = {isa = PBXFileReference; path = "PageLayout-Info.plist"; sourceTree = "<group>"; };
+		49AD609E13218F5D00D620D3 /* PageLayout-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PageLayout-Info.plist"; sourceTree = "<group>"; };
 		49AD60A013218F5D00D620D3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		49AD60A213218F5D00D620D3 /* PageLayout-Prefix.pch */ = {isa = PBXFileReference; path = "PageLayout-Prefix.pch"; sourceTree = "<group>"; };
+		49AD60A213218F5D00D620D3 /* PageLayout-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PageLayout-Prefix.pch"; sourceTree = "<group>"; };
 		49AD60A313218F5D00D620D3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		49AD60A513218F5D00D620D3 /* PageLayoutAppDelegate.h */ = {isa = PBXFileReference; path = PageLayoutAppDelegate.h; sourceTree = "<group>"; };
+		49AD60A513218F5D00D620D3 /* PageLayoutAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PageLayoutAppDelegate.h; sourceTree = "<group>"; };
 		49AD60A613218F5D00D620D3 /* PageLayoutAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PageLayoutAppDelegate.m; sourceTree = "<group>"; };
 		49AD60A913218F5D00D620D3 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
+		49AD60B01321918600D620D3 /* Story.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Story.plist; sourceTree = "<group>"; };
+		49AD60B2132192C400D620D3 /* StoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoryViewController.h; sourceTree = "<group>"; };
+		49AD60B3132192C400D620D3 /* StoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoryViewController.m; sourceTree = "<group>"; };
+		49AD60B51321939400D620D3 /* DNTextFrameView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DNTextFrameView.h; path = DNLayoutEngine/DNTextFrameView.h; sourceTree = "<group>"; };
+		49AD60B61321939400D620D3 /* DNTextFrameView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DNTextFrameView.m; path = DNLayoutEngine/DNTextFrameView.m; sourceTree = "<group>"; };
+		49AD60B9132193C900D620D3 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		49AD60C11321946300D620D3 /* DNTextLayoutManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DNTextLayoutManager.h; path = DNLayoutEngine/DNTextLayoutManager.h; sourceTree = "<group>"; };
+		49AD60C21321946300D620D3 /* DNTextLayoutManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DNTextLayoutManager.m; path = DNLayoutEngine/DNTextLayoutManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,6 +51,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49AD60BA132193C900D620D3 /* CoreText.framework in Frameworks */,
 				49AD609713218F5D00D620D3 /* UIKit.framework in Frameworks */,
 				49AD609913218F5D00D620D3 /* Foundation.framework in Frameworks */,
 				49AD609B13218F5D00D620D3 /* CoreGraphics.framework in Frameworks */,
@@ -64,6 +81,7 @@
 		49AD609513218F5D00D620D3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				49AD60B9132193C900D620D3 /* CoreText.framework */,
 				49AD609613218F5D00D620D3 /* UIKit.framework */,
 				49AD609813218F5D00D620D3 /* Foundation.framework */,
 				49AD609A13218F5D00D620D3 /* CoreGraphics.framework */,
@@ -77,6 +95,12 @@
 				49AD60A513218F5D00D620D3 /* PageLayoutAppDelegate.h */,
 				49AD60A613218F5D00D620D3 /* PageLayoutAppDelegate.m */,
 				49AD60A813218F5D00D620D3 /* MainWindow.xib */,
+				49AD60B01321918600D620D3 /* Story.plist */,
+				49AD60B2132192C400D620D3 /* StoryViewController.h */,
+				49AD60B3132192C400D620D3 /* StoryViewController.m */,
+				492C25BC1323164100325437 /* UIFont+CoreTextExtensions.h */,
+				492C25BD1323164100325437 /* UIFont+CoreTextExtensions.m */,
+				49AD60B8132193A600D620D3 /* Text Layout */,
 				49AD609D13218F5D00D620D3 /* Supporting Files */,
 			);
 			path = PageLayout;
@@ -91,6 +115,17 @@
 				49AD60A313218F5D00D620D3 /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		49AD60B8132193A600D620D3 /* Text Layout */ = {
+			isa = PBXGroup;
+			children = (
+				49AD60B51321939400D620D3 /* DNTextFrameView.h */,
+				49AD60B61321939400D620D3 /* DNTextFrameView.m */,
+				49AD60C11321946300D620D3 /* DNTextLayoutManager.h */,
+				49AD60C21321946300D620D3 /* DNTextLayoutManager.m */,
+			);
+			name = "Text Layout";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -145,6 +180,7 @@
 			files = (
 				49AD60A113218F5D00D620D3 /* InfoPlist.strings in Resources */,
 				49AD60AA13218F5D00D620D3 /* MainWindow.xib in Resources */,
+				49AD60B11321918600D620D3 /* Story.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -157,6 +193,10 @@
 			files = (
 				49AD60A413218F5D00D620D3 /* main.m in Sources */,
 				49AD60A713218F5D00D620D3 /* PageLayoutAppDelegate.m in Sources */,
+				49AD60B4132192C400D620D3 /* StoryViewController.m in Sources */,
+				49AD60B71321939400D620D3 /* DNTextFrameView.m in Sources */,
+				49AD60C31321946300D620D3 /* DNTextLayoutManager.m in Sources */,
+				492C25BE1323164100325437 /* UIFont+CoreTextExtensions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -264,6 +304,7 @@
 				49AD60AF13218F5D00D620D3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

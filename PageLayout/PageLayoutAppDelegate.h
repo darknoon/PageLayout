@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
+@class StoryViewController;
 @interface PageLayoutAppDelegate : NSObject <UIApplicationDelegate> {
-
+	StoryViewController *storyViewController;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
