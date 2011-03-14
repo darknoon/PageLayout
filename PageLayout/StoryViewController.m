@@ -99,8 +99,31 @@
 		[pageScrollView addSubview:page];
 	}
 	
-	UIFont *font = [UIFont fontWithName:@"Helvetica Neue" size:14];
-	NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys: (id)[font CTFont], kCTFontAttributeName, nil];
+	CFIndex theNumberOfSettings = 6;
+	CTLineBreakMode lineBreakMode = kCTLineBreakByWordWrapping;
+	CTTextAlignment textAlignment = kCTLeftTextAlignment;
+	CGFloat indent = 10.0;
+	CGFloat spacing = 15.0;
+	CGFloat topSpacing = 5.0;
+	CGFloat lineSpacing = 1.0;
+	CTParagraphStyleSetting theSettings[6] =
+	{
+		{ kCTParagraphStyleSpecifierAlignment, sizeof(CTTextAlignment), &textAlignment },
+		{ kCTParagraphStyleSpecifierLineBreakMode, sizeof(CTLineBreakMode), &lineBreakMode },
+		{ kCTParagraphStyleSpecifierFirstLineHeadIndent, sizeof(CGFloat), &indent },
+		{ kCTParagraphStyleSpecifierParagraphSpacing, sizeof(CGFloat), &spacing },
+		{ kCTParagraphStyleSpecifierParagraphSpacingBefore, sizeof(CGFloat), &topSpacing },
+		{ kCTParagraphStyleSpecifierLineSpacing, sizeof(CGFloat), &lineSpacing }
+	};
+	
+	CTParagraphStyleRef paragraphStyle = CTParagraphStyleCreate(theSettings, theNumberOfSettings);
+
+	
+	UIFont *font = [UIFont fontWithName:@"Baskerville" size:18];
+	NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys: (id)[font CTFont], kCTFontAttributeName,
+								paragraphStyle, kCTParagraphStyleAttributeName, nil];
+	CFRelease(paragraphStyle);
+	
 	NSAttributedString *attributedSting = [[[NSAttributedString alloc] initWithString:[storyDictionary objectForKey:@"text"] attributes:attributes] autorelease];
 	textLayoutManager.attributedText = attributedSting;
 	
