@@ -10,8 +10,7 @@
 #import "DNTextFrameView.h"
 
 #import <libcss/libcss.h>
-#import "DNCSSContext.h"
-#import "DNCSSStylesheet.h"
+#import "DNCSS.h"
 
 #import "CXML_libcss.h"
 #import "DNLayoutModule.h"

@@ -1,0 +1,40 @@
+text-box {
+	background-color: #ffcc00;
+	color: #003333;
+	font: bold 18px sans-serif;
+}
+
+rep[type="pad-portrait"] text-box {
+	width: 384px;
+}
+
+rep[type="pad-portrait"] text-box.column-1 {
+	left: 0;
+}
+
+rep[type="pad-portrait"] text-box.column-2 {
+	left: 384px;
+}
+
+
+
+
+rep[type="pad-landscape"] text-box {
+	width:340px;
+	height:748px;
+}
+
+rep[type="pad-landscape"] text-box.column-1 {
+	left: 0;
+}
+
+rep[type="pad-landscape"] text-box.column-2 {
+	left: 340px;
+}
+
+rep[type="pad-landscape"] text-box.column-2 {
+	left: 680px;
+}
+
+
+

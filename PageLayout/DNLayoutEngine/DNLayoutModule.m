@@ -12,9 +12,7 @@
 
 #import "CXMLDocument.h"
 
-#import "DNCSSContext.h"
-#import "DNCSSStyle.h"
-#import "DNCSSStylesheet.h"
+#import "DNCSS.h"
 #import "CXML_libcss.h"
 
 #import "UIFont+CoreTextExtensions.h"
@@ -43,16 +41,18 @@
 	[self createPagesForOrientation:UIInterfaceOrientationPortrait];
 	[self createPagesForOrientation:UIInterfaceOrientationLandscapeLeft];
 	
-	NSString *stylesheetText = @" \
-	rep[type=\"ipad-vertical\"] text-box { \
-		color:#ff0000; \
-		font: bold 18px sans-serif; \
-		width: 384px; \
-	} ";
+	NSData *stylesheetData = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"Global" ofType:@"css"]];
 	
-	DNCSSStylesheet *stylesheet = [[[DNCSSStylesheet alloc] initWithData:[stylesheetText dataUsingEncoding:NSUTF8StringEncoding]
+	DNCSSStylesheet *stylesheet = [[[DNCSSStylesheet alloc] initWithData:stylesheetData
 																 baseURL:nil
 																   error:&err] autorelease];
+	if (!stylesheet) {
+		if (outError)
+			*outError = err;
+		NSLog(@"Error loading global stylesheet: %@", err);
+		[self release];
+		return nil;
+	}
 	_cssContext = [[DNCSSContext alloc] initWithStylesheet:stylesheet];
 
 	

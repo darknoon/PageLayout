@@ -43,14 +43,14 @@
 	<page>
 		<!--Text flows in order within these boxes-->
 		<text-box story="13132" style="left:0px; top:0px; width:340px; height:748px;" />
-		<text-box story="13132" style="left:340px; top:0px; width:384px; height:748px;" />
-		<text-box story="13132" style="left:680px; top:0px; width:384px; height:748px;" />
+		<text-box story="13132" style="left:340px; top:0px; width:340px; height:748px;" />
+		<text-box story="13132" style="left:680px; top:0px; width:340px; height:748px;" />
 	</page>
 	<page>
 		<!--Text flows in order within these boxes-->
-		<text-box story="13132" style="left:0px; top:0px; width:340px; height:700px;" />
-		<text-box story="13132" style="left:340px; top:0px; width:384px; height:700px;" />
-		<text-box story="13132" style="left:680px; top:0px; width:384px; height:700px;" />
+		<text-box story="13132" style="left:0px; top:0px; width:340px; height:748px;" />
+		<text-box story="13132" style="left:340px; top:0px; width:340px; height:748px;" />
+		<text-box story="13132" style="left:680px; top:0px; width:340px; height:748px;" />
 	</page>
 
 </rep>

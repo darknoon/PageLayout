@@ -43,6 +43,7 @@
 		49AD60B71321939400D620D3 /* DNTextFrameView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49AD60B61321939400D620D3 /* DNTextFrameView.m */; };
 		49AD60BA132193C900D620D3 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49AD60B9132193C900D620D3 /* CoreText.framework */; };
 		49AD60C31321946300D620D3 /* DNLayoutManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 49AD60C21321946300D620D3 /* DNLayoutManager.m */; };
+		49E99DDE132EA574008E1545 /* Global.css in Resources */ = {isa = PBXBuildFile; fileRef = 49E99DDD132EA574008E1545 /* Global.css */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -136,6 +137,7 @@
 		49AD60B9132193C900D620D3 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		49AD60C11321946300D620D3 /* DNLayoutManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DNLayoutManager.h; path = DNLayoutEngine/DNLayoutManager.h; sourceTree = "<group>"; };
 		49AD60C21321946300D620D3 /* DNLayoutManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DNLayoutManager.m; path = DNLayoutEngine/DNLayoutManager.m; sourceTree = "<group>"; };
+		49E99DDD132EA574008E1545 /* Global.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = Global.css; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -178,7 +180,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		49209C5E132DA04C00DAF284 /* TouchCode */ = {
+		49209C5E132DA04C00DAF284 /* TouchXML */ = {
 			isa = PBXGroup;
 			children = (
 				49209C5F132DA04C00DAF284 /* Creation */,
@@ -205,7 +207,7 @@
 				49209C74132DA04C00DAF284 /* Tidy */,
 				49209C75132DA04C00DAF284 /* TouchXML.h */,
 			);
-			name = TouchCode;
+			name = TouchXML;
 			path = Externals/TouchXML/Source;
 			sourceTree = "<group>";
 		};
@@ -235,7 +237,7 @@
 				49A02D62132E191700A336EE /* netsurf-compile-in */,
 				4900F607132E14390013DC31 /* libnetsurf.xcodeproj */,
 				4900F5E7132DC06F0013DC31 /* include */,
-				49209C5E132DA04C00DAF284 /* TouchCode */,
+				49209C5E132DA04C00DAF284 /* TouchXML */,
 			);
 			name = Externals;
 			sourceTree = "<group>";
@@ -293,6 +295,7 @@
 				49AD60A813218F5D00D620D3 /* MainWindow.xib */,
 				49AD60B01321918600D620D3 /* Story.plist */,
 				4900F5D8132DA9E70013DC31 /* Module.dml */,
+				49E99DDD132EA574008E1545 /* Global.css */,
 				49AD60B2132192C400D620D3 /* StoryViewController.h */,
 				49AD60B3132192C400D620D3 /* StoryViewController.m */,
 				492C25BC1323164100325437 /* UIFont+CoreTextExtensions.h */,
@@ -410,6 +413,7 @@
 				49AD60AA13218F5D00D620D3 /* MainWindow.xib in Resources */,
 				49AD60B11321918600D620D3 /* Story.plist in Resources */,
 				4900F5D9132DA9E70013DC31 /* Module.dml in Resources */,
+				49E99DDE132EA574008E1545 /* Global.css in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -479,7 +483,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
@@ -496,7 +500,7 @@
 				);
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
-				USER_HEADER_SEARCH_PATHS = "$(SRC_ROOT)/Externals/netsurf-ios/libnetsurf/";
+				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Debug;
 		};
@@ -506,7 +510,7 @@
 				ARCHS = "$(ARCHS_UNIVERSAL_IPHONE_OS)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
@@ -524,7 +528,7 @@
 				);
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
-				USER_HEADER_SEARCH_PATHS = "$(SRC_ROOT)/Externals/netsurf-ios/libnetsurf/";
+				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Release;
 		};
