@@ -1,0 +1,59 @@
+<!DOCTYPE module>
+
+<module id="module1">
+
+<!--Links to necessary media-->
+
+<link id="231" type="image/png" href="images/231.png" />
+
+<!--Links to more tiled media??-->
+<link id="483" type="application/x-tiled-jpg" href="tiles/483" />
+
+<story id="13132" title="Lorem Ipsum Dolor sit Amet">
+<h1>Lorem Ipsum Dolor sit Amet</h1>
+ Illum et tincidunt vero lorem ipsum et dolore wisi augue dignissim lobortis commodo nulla, wisi erat accumsan vulputate ut vel hendrerit. Nisl autem aliquam illum ut et ullamcorper feugait ad dignissim. Odio dolor in consequat in adipiscing te veniam. Ut consectetuer, volutpat duis diam ullamcorper iusto dolore luptatum ut esse ullamcorper, duis praesent, velit lobortis molestie. Et veniam aliquip accumsan minim dolore molestie dolore ex euismod et esse vero eum. Nulla nibh facilisis ullamcorper facilisi dolore consequatvel minim delenit, blandit duis delenit crisare nulla et in. 
+ At ut dolore qui ut et adipiscing eum, dolore luptatum, amet crisare iusto. Et eu ex elit aliquip enim ea sit delenit ullamcorper iusto. Minim molestie suscipit? Ut exerci blandit vulputate adipiscing qui in diam vel vero tation feugiat. Eros dignissim vel, et vulputate blandit feugiat in. 
+ Ut eros eu nulla molestie feugait duis, dolore iusto in volutpat quis ut duis ut. Sit hendrerit et dignissim, ex eum vel enim duis te facilisis aliquip iriuredolor ut et consequat volutpat nulla iusto. Vel commodo luptatum suscipit vero facilisi consequatvel dolore ut duis feugait, et dolore, accumsan praesent autem et ipsum facilisi vulputate nulla, wisi ullamcorper feugiat hendrerit. Delenit tation molestie ullamcorper autem laoreet, duis lorem nulla vel, luptatum dolore iriuredolor enim. Eros facilisis iriure eros enim duis sciurus eu hendrerit euismod iriuredolor ullamcorper in lobortis qui hendrerit adipiscing praesent nulla. Facilisis lobortis dolore veniam hendrerit exerci ut et, iusto nulla dolore duis facilisis ut dignissim blandit te ad vero duis suscipit nostrud erat ea dolor? 
+ Ex augue eum enim iusto, vero esse in nisl praesent. Duis ullamcorper, minim duis eros exerci iusto, enim ea luptatum autem. Consectetuer et consectetuer dolor minim ut ex ea duis, hendrerit luptatum iriuredolor, iusto commodo delenit, te consequat esse. <em>Tation</em> laoreet quis ex adipiscing lorem exerci facilisi commodo duis nostrud iriuredolor ea aliquip in esse. Nulla hendrerit at ut laoreet tincidunt illum consequat aliquip blandit feugiat ea ullamcorper, enim blandit. 
+ Nisl nulla veniam consequatvel esse in blandit. Ut dignissim nulla wisi laoreet aliquam, ea commodo in augue facilisi enim in exerci eros augue commodo dolore, autem volutpat, vulputate eu enim. Vel elit nisl lobortis dolor eros hendrerit duis ea facilisi, duis nulla dignissim aliquam delenit odio nostrud wisi dolore delenit. Adipiscing tation nisl eros duis molestie nisl enim. 
+ In et vulputate qui odio iusto dolore feugait vel diam, accumsan praesent dolore vel euismod adipiscing. Dolore laoreet tation, eros et at accumsan consequat te qui tation consectetuer autem? Ut odio vel sed magna, ut commodo suscipit velit laoreet commodo, iusto sit sed in hendrerit ad eu. Dolore in nulla consequat, vero blandit ipsum facilisis feugiat praesent vero. Te wisi velit, lorem ex ea facilisi enim facilisis consequat feugiat commodo, facilisi lobortis autem vulputate enim veniam facilisis illum dolore. Nostrud accumsan, duis et? Vero ea, dolore autem eum dignissim facilisis nisl vel nisl ut nisl. Eu feugait consequat eu accumsan nulla ut quis te, enim wisi et. Nulla wisi consequatvel exerci enim ullamcorper nulla sed, dolore sciurus, vulputate lorem ea odio nostrud velit blandit amet. 
+ Consequat hendrerit duis ullamcorper enim exerci enim, feugait illum esse tation duis, suscipit eu vel iriure nulla. Sit sciurus at dolore minim duis at veniam delenit, nulla commodo, crisare vulputate in et, dolore suscipit augue luptatum ex praesent ex. Euismod nulla tation ut et feugiat, dolore accumsan blandit nulla ut consectetuer iusto in. Delenit nostrud crisare dolore? 
+ Adipiscing in eu augue esse facilisis feugait, vel amet duis. At praesent dolore aliquip qui odio. Nonummy qui quis, eum velit tation duis. Eu enim, nisl feugait praesent adipiscing nulla ad exerci delenit duis esse hendrerit nostrud, exerci feugiat delenit? Lobortis ut, duis vero, iriuredolor dolore dolor delenit blandit eu te commodo. Ullamcorper consectetuer nulla esse ut diam at consequat enim tation minim. Dolore euismod vulputate, exerci vulputate quis, lobortis ex feugiat, exerci vero delenit feugait dolore ex. 
+ Nulla odio adipiscing blandit nisl dolore ipsum duis feugiat nostrud eu illum? Hendrerit, ad feugait dolor facilisis dolore vulputate tation dolor autem consequatvel veniam dolor ullamcorper. Accumsan minim suscipit ea lobortis duis velit tation, in aliquip. Feugiat praesent exerci elit eu illum facilisi blandit quis aliquip, iusto autem crisare et in nisl, quis dignissim at blandit illum magna illum. Dolore vulputate nisl dolore accumsan diam duis, iusto dignissim consequat illum vel. Et crisare vel luptatum duis ex nisl. 
+ Enim at, hendrerit velit crisare ipsum hendrerit, tation ea adipiscing autem dignissim tation ipsum velit tation te praesent. Vulputate exerci odio, et elit et augue nulla commodo dignissim minim. Blandit ea autem at nulla sed molestie dolore duis nulla nostrud aliquip duis, sed tincidunt ipsum? Facilisis velit hendrerit dolore commodo et sed nonummy ullamcorper autem odio dolore, molestie nulla eu. Facilisi iriuredolor ut augue, ullamcorper eros esse nibh. Eros praesent ullamcorper tation, dolor duis ex commodo consectetuer odio at feugiat aliquip adipiscing qui. 
+</story>
+
+
+<rep type="pad-portrait">
+	<page>
+		<img id="231" style="10px; top:30px; width:340px; height:180px" />
+		<!--Text flows in order within these boxes-->
+		<text-box story="13132" style="left:0px; top:0px; width:384px; height:1000px;" />
+		<text-box story="13132" style="left:384px; top:0px; width:384px; height:1000px;"/>
+	</page>
+
+	<page>
+		<text-box story="13132" style="left:0px; top:0px; width:384px; height:1000px;" />
+		<text-box story="13132" style="left:384px; top:0px; width:384px; height:1000px;"/>
+	</page>
+
+</rep>
+
+<rep type="pad-landscape">
+	<page>
+		<!--Text flows in order within these boxes-->
+		<text-box story="13132" style="left:0px; top:0px; width:340px; height:748px;" />
+		<text-box story="13132" style="left:340px; top:0px; width:384px; height:748px;" />
+		<text-box story="13132" style="left:680px; top:0px; width:384px; height:748px;" />
+	</page>
+	<page>
+		<!--Text flows in order within these boxes-->
+		<text-box story="13132" style="left:0px; top:0px; width:340px; height:700px;" />
+		<text-box story="13132" style="left:340px; top:0px; width:384px; height:700px;" />
+		<text-box story="13132" style="left:680px; top:0px; width:384px; height:700px;" />
+	</page>
+
+</rep>
+
+
+</module>

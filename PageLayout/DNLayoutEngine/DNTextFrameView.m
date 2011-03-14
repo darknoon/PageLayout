@@ -7,7 +7,7 @@
 //
 
 #import "DNTextFrameView.h"
-#import "DNTextLayoutManager.h"
+#import "DNLayoutManager.h"
 
 @implementation DNTextFrameView
 @synthesize layoutManager = _layoutManager;

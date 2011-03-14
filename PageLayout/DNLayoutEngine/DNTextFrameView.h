@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@class DNTextLayoutManager;
+@class DNLayoutManager;
 @interface DNTextFrameView : UIView {
-	DNTextLayoutManager *_layoutManager;
+	DNLayoutManager *_layoutManager;
 }
 
-@property (nonatomic, assign) DNTextLayoutManager *layoutManager;
+@property (nonatomic, assign) DNLayoutManager *layoutManager;
 
 @end

@@ -1,0 +1,6 @@
+[submodule "Externals/TouchXML"]
+	path = Externals/TouchXML
+	url = https://github.com/TouchCode/TouchXML.git
+[submodule "Externals/netsurf-ios"]
+	path = Externals/netsurf-ios
+	url = https://github.com/darknoon/netsurf-ios

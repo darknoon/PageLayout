@@ -6,11 +6,34 @@
 //  Copyright 2011 Darknoon. All rights reserved.
 //
 
-#import "DNTextLayoutManager.h"
+#import "DNLayoutManager.h"
 #import "DNTextFrameView.h"
 
-@implementation DNTextLayoutManager
+#import <libcss/libcss.h>
+#import "DNCSSContext.h"
+#import "DNCSSStylesheet.h"
+
+#import "CXML_libcss.h"
+#import "DNLayoutModule.h"
+#import "DNLayoutPage.h"
+#import "DNLayoutTextBox.h"
+
+#import "CXMLDocument.h"
+#import "CXMLElement.h"
+
+@interface DNLayoutManager ()
+//1
+- (void)addTextFrameView:(DNTextFrameView *)inTextFrameView;
+- (void)removeAllTextFrameViews;
+
+//2
+- (void)layoutTextInViews;
+
+@end
+
+@implementation DNLayoutManager
 @synthesize attributedText = _attributedText;
+
 
 - (id)init;
 {
@@ -19,14 +42,37 @@
 	
 	_textFrameViews = [[NSMutableArray alloc] init];
     _frames = [[NSMutableArray alloc] init];
+
+	NSError *error = nil;
+
+	NSString *modulePath = [[NSBundle mainBundle] pathForResource:@"Module" ofType:@"dml"];
+	NSData *moduleData = [[NSData alloc] initWithContentsOfFile:modulePath];
+	
+	if (!moduleData) {
+		[self release];
+		NSLog(@"Could not create text layout manager: no data");
+		return nil;
+	}
+	
+	_module = [[DNLayoutModule alloc] initWithData:moduleData error:&error];
+
+	if (!_module) {
+		[self release];
+		NSLog(@"Could not create text layout manager: module error %@", error);
+		return nil;
+	}
+	
+	_attributedText = [[_module attributedStringForStoryAtIndex:0] retain];
 	
     return self;
 }
 
 - (void)dealloc {
     [_textFrameViews release];
+	[_attributedText release];
     [super dealloc];
 }
+
 
 - (void)addTextFrameView:(DNTextFrameView *)inTextFrameView;
 {
@@ -41,13 +87,36 @@
 	}
 }
 
+- (NSUInteger)numberOfPages;
+{
+	return [_module pageCount];
+}
+
+- (UIView *)pageViewForIndex:(NSUInteger)inIndex orientation:(UIInterfaceOrientation)inInterfaceOrientation;
+{
+	DNLayoutPage *page = [_module pageAtIndex:inIndex forOrientation:inInterfaceOrientation];
+	
+	CGRect pageBounds = (CGRect) {.size.width = 768.f, .size.height = 1024.f - 20.f}; // page.bounds;
+	
+	UIView *pageView = [[[UIView alloc] initWithFrame:pageBounds] autorelease];
+	
+	for (DNLayoutTextBox *box in [page textBoxes]) {
+		DNTextFrameView *textFrameView = [[[DNTextFrameView alloc] initWithFrame:[box frame]] autorelease];
+		textFrameView.backgroundColor = [UIColor yellowColor];
+		
+		[self addTextFrameView:textFrameView];
+		[pageView addSubview:textFrameView];
+	}
+	
+	return pageView;
+}
+
 - (void)drawTextForFrameView:(DNTextFrameView *)inTextFrameView;
 {
 	CGContextRef context = UIGraphicsGetCurrentContext();
 	CGContextScaleCTM(context, 1.0, -1.0);
 	CGContextTranslateCTM(context, 0.0, -inTextFrameView.bounds.size.height);
-	
-	
+		
 	NSUInteger index = [_textFrameViews indexOfObject:inTextFrameView];
 	if (index != NSNotFound) {
 		CTFrameRef frame = (CTFrameRef)[_frames objectAtIndex:index];

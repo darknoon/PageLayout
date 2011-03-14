@@ -7,12 +7,19 @@
 //
 
 #import "StoryViewController.h"
-#import "DNTextLayoutManager.h"
+#import "DNLayoutManager.h"
 #import "DNTextFrameView.h"
 
 #import "UIFont+CoreTextExtensions.h"
 
+#import <QuartzCore/QuartzCore.h>
+
+@interface StoryViewController ()
+@property (nonatomic, retain) NSArray *pages;
+@end
+
 @implementation StoryViewController
+@synthesize pages = _pages;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -42,92 +49,53 @@
 
 #pragma mark - View lifecycle
 
-- (void)viewDidLoad
+- (void)setupPagesForOrientation:(UIInterfaceOrientation)inInterfaceOrientation;
 {
-    [super viewDidLoad];
-		
-	NSUInteger nPages = 10;
+	for (UIView *oldView in self.pages) {
+		[oldView removeFromSuperview];
+	}
+	self.pages = nil;
+	[textLayoutManager removeAllTextFrameViews];
 
-	textLayoutManager = [[DNTextLayoutManager alloc] init];
 	
-	//TODO: replace with robust layout system...
-	CGRect viewBounds = self.view.bounds;
-	pageScrollView = [[UIScrollView alloc] initWithFrame:viewBounds];
-	pageScrollView.contentSize = (CGSize) {
-		.width = nPages * viewBounds.size.width,
-		.height = 0,
-	};
-	pageScrollView.pagingEnabled = YES;
-	[self.view addSubview:pageScrollView];
-	
+	NSUInteger nPages = [textLayoutManager numberOfPages];
 	NSMutableArray *pagesMutable = [NSMutableArray array];
 	for (int i=0; i<nPages; i++) {
-		UIView *page = [[[UIView alloc] initWithFrame:(CGRect) {
-			.origin.x = i * viewBounds.size.width,
-			.size.width = viewBounds.size.width,
-			.size.height = viewBounds.size.height,
-		}] autorelease];
-		page.backgroundColor = [UIColor whiteColor];
+		UIView *page = [textLayoutManager pageViewForIndex:i orientation:inInterfaceOrientation];
+		page.backgroundColor = [UIColor greenColor];
 		
-		CGRect pageBounds = page.bounds;
-				
-		//Add two column for now...
-		//TODO: use rects loaded from the configuration file
-		DNTextFrameView *column1 = [[[DNTextFrameView alloc] initWithFrame:(CGRect) {
-			.origin.x = 0,
-			.size.width = pageBounds.size.width / 2.0f,
-			.size.height = pageBounds.size.height,
-		}] autorelease];
-		column1.opaque = NO;
-
-		DNTextFrameView *column2 = [[[DNTextFrameView alloc] initWithFrame:(CGRect) {
-			.origin.x = pageBounds.size.width / 2.0f,
-			.size.width = pageBounds.size.width / 2.0f,
-			.size.height = pageBounds.size.height,
-		}] autorelease];
-		column2.opaque = NO;
-		
-		[textLayoutManager addTextFrameView:column1];
-//		[column1 setBackgroundColor:[UIColor greenColor]];
-		[page addSubview:column1];
-
-		[textLayoutManager addTextFrameView:column2];
-//		[column2 setBackgroundColor:[UIColor redColor]];
-		[page addSubview:column2];
+		page.frame = (CGRect) {
+			.origin.x = i * pageScrollView.frame.size.width,
+			.size = page.bounds.size,
+		};
 		
 		[pagesMutable addObject:page];
 		[pageScrollView addSubview:page];
 	}
-	
-	CFIndex theNumberOfSettings = 6;
-	CTLineBreakMode lineBreakMode = kCTLineBreakByWordWrapping;
-	CTTextAlignment textAlignment = kCTLeftTextAlignment;
-	CGFloat indent = 10.0;
-	CGFloat spacing = 15.0;
-	CGFloat topSpacing = 5.0;
-	CGFloat lineSpacing = 1.0;
-	CTParagraphStyleSetting theSettings[6] =
-	{
-		{ kCTParagraphStyleSpecifierAlignment, sizeof(CTTextAlignment), &textAlignment },
-		{ kCTParagraphStyleSpecifierLineBreakMode, sizeof(CTLineBreakMode), &lineBreakMode },
-		{ kCTParagraphStyleSpecifierFirstLineHeadIndent, sizeof(CGFloat), &indent },
-		{ kCTParagraphStyleSpecifierParagraphSpacing, sizeof(CGFloat), &spacing },
-		{ kCTParagraphStyleSpecifierParagraphSpacingBefore, sizeof(CGFloat), &topSpacing },
-		{ kCTParagraphStyleSpecifierLineSpacing, sizeof(CGFloat), &lineSpacing }
-	};
-	
-	CTParagraphStyleRef paragraphStyle = CTParagraphStyleCreate(theSettings, theNumberOfSettings);
+	self.pages = pagesMutable;
 
-	
-	UIFont *font = [UIFont fontWithName:@"Baskerville" size:18];
-	NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys: (id)[font CTFont], kCTFontAttributeName,
-								paragraphStyle, kCTParagraphStyleAttributeName, nil];
-	CFRelease(paragraphStyle);
-	
-	NSAttributedString *attributedSting = [[[NSAttributedString alloc] initWithString:[storyDictionary objectForKey:@"text"] attributes:attributes] autorelease];
-	textLayoutManager.attributedText = attributedSting;
-	
+	CGRect viewBounds = self.view.bounds;
+	pageScrollView.contentSize = (CGSize) {
+		.width = nPages * viewBounds.size.width,
+		.height = 0,
+	};
 	[textLayoutManager layoutTextInViews];
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+		
+	textLayoutManager = [[DNLayoutManager alloc] init];
+	
+	//TODO: replace with robust layout system...
+	pageScrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
+	pageScrollView.pagingEnabled = YES;
+	pageScrollView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+	[self.view addSubview:pageScrollView];
+	
+	[self setupPagesForOrientation:self.interfaceOrientation];
+		
 }
 
 - (void)viewDidUnload
@@ -150,8 +118,10 @@
 
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_3_0);
 {
-	//TODO: set layout to appropriate layout for this orientation...
-	//[textLayoutManager layoutTextInViews]
+	CATransition *transition = [CATransition animation];
+	transition.type = kCATransitionFade;
+	[self.view.layer addAnimation:transition forKey:kCATransition];
+	[self setupPagesForOrientation:toInterfaceOrientation];
 }
 
 @end

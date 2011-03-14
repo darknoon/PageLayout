@@ -8,16 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
-@class DNTextLayoutManager;
+@class DNLayoutManager;
 @interface StoryViewController : UIViewController {
     NSDictionary *storyDictionary;
 	
-	DNTextLayoutManager *textLayoutManager;
+	DNLayoutManager *textLayoutManager;
 	
 	UIScrollView *pageScrollView;
 	
 	//A page in an UIView with text frame subviews
-	NSArray *pages;
+	NSArray *_pages;
 }
 
 @end
