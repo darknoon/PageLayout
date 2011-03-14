@@ -19,18 +19,27 @@
 
 /* This macro is used to silence compiler warnings about unused function
  * arguments. */
-#define UNUSED(x) ((x) = (x))
+#ifdef UNUSED 
+#elif defined(__GNUC__) 
+# define UNUSED(x) UNUSED_ ## x __attribute__((unused)) 
+#elif defined(__LCLINT__) 
+# define UNUSED(x) /*@unused@*/ x 
+#else 
+# define UNUSED(x) x 
+#endif
 
 
-static css_error node_name(void *pw, void *node, css_qname *qname) {
+#define DIE_UNIMPLEMENTED() printf("CSS: Unimplemented __FUNCTION__ required for selector!"); assert(0)
+
+
+static css_error node_name(void *UNUSED(pw), void *node, css_qname *qname) {
 	qname->name = [[(CXMLElement *)node name] LWCString];	
 	return CSS_OK;
 }
 
-static css_error node_classes(void *pw, void *node,
+static css_error node_classes(void *UNUSED(pw), void *node,
 							  lwc_string ***classes,
 							  uint32_t *n_classes) {
-	UNUSED(pw);
 	//TODO: make this more efficient!
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	NSString *classString = [[(CXMLElement *)node attributeForName:@"class"] stringValue];
@@ -39,7 +48,7 @@ static css_error node_classes(void *pw, void *node,
 	if (stringComponents.count > 0) {
 		lwc_string **classesPtr = NULL;
 		//Make an array of strings with the proper allocator
-		css_cf_realloc(classesPtr, stringComponents.count + sizeof(lwc_string *), pw);
+		css_cf_realloc(classesPtr, stringComponents.count + sizeof(lwc_string *), NULL);
 		int i = 0;
 		for (NSString *className in stringComponents) {
 			classesPtr[i] = [className LWCString];
@@ -56,19 +65,18 @@ static css_error node_classes(void *pw, void *node,
 	return CSS_OK;
 }
 
-static css_error node_id(void *pw, void *node, lwc_string **outId) {
+static css_error node_id(void *UNUSED(pw), void *node, lwc_string **outId) {
 	NSString *idString = [[(CXMLElement *)node attributeForName:@"id"] stringValue];
 	*outId = [idString LWCString];
 	return CSS_OK;
 }
 
-static css_error named_ancestor_node(void *pw, void *node,
+static css_error named_ancestor_node(void *UNUSED(pw), void *node,
 									 const css_qname *qname, void **outAncestor) {
-	UNUSED(pw);
 	CXMLNode *parent = [(CXMLElement *)node parent];
 	lwc_string *name = qname->name;
-	NSString *nameString = [[NSString alloc] initWithBytesNoCopy:lwc_string_data(name) length:lwc_string_length(name) encoding:NSUTF8StringEncoding freeWhenDone:NO];
-
+	NSString *nameString = [[NSString alloc] initWithBytesNoCopy:(void *)lwc_string_data(name) length:lwc_string_length(name) encoding:NSUTF8StringEncoding freeWhenDone:NO];
+	
 	BOOL found = NO;
 	while (parent) {
 		if ([nameString isEqualToString:[parent name]]) {
@@ -87,14 +95,13 @@ static css_error named_ancestor_node(void *pw, void *node,
 }
 
 //Does the parent have name *name
-static css_error named_parent_node(void *pw, void *node,
+static css_error named_parent_node(void *UNUSED(pw), void *node,
 								   const css_qname *qname, void **outParent) {
-	UNUSED(pw);
 	CXMLNode *parent = [(CXMLElement *)node parent];
 	
 	if (parent) {
 		lwc_string *name = qname->name;
-		NSString *nameString = [[NSString alloc] initWithBytesNoCopy:lwc_string_data(name) length:lwc_string_length(name) encoding:NSUTF8StringEncoding freeWhenDone:NO];
+		NSString *nameString = [[NSString alloc] initWithBytesNoCopy:(void *)lwc_string_data(name) length:lwc_string_length(name) encoding:NSUTF8StringEncoding freeWhenDone:NO];
 		if ([nameString isEqualToString:[parent name]]) {
 			*outParent = parent;
 		} else {
@@ -107,54 +114,54 @@ static css_error named_parent_node(void *pw, void *node,
 	return CSS_OK;
 }
 
-static css_error named_sibling_node(void *pw, void *node,
+static css_error named_sibling_node(void *UNUSED(pw), void *node,
 									const css_qname *qname, void **sibling) {
 	*sibling = NULL;
+	DIE_UNIMPLEMENTED();
 	return CSS_OK;
 }
 
-static css_error named_generic_sibling_node(void *pw, void *node,
+static css_error named_generic_sibling_node(void *UNUSED(pw), void *node,
 											const css_qname *qname, void **sibling) {
 	*sibling = NULL;
+	DIE_UNIMPLEMENTED();
 	return CSS_OK;
 }
 
-static css_error parent_node(void *pw, void *node, void **parent) {
+static css_error parent_node(void *UNUSED(pw), void *node, void **parent) {
 	*parent = [(CXMLNode *)node parent];
 	return CSS_OK;
 }
 
-static css_error sibling_node(void *pw, void *node, void **sibling) {
-	UNUSED(pw); UNUSED(node);
+static css_error sibling_node(void *UNUSED(pw), void *node, void **sibling) {
 	*sibling = NULL;
+	DIE_UNIMPLEMENTED();
 	return CSS_OK;
 }
 
-static css_error node_has_name(void *pw, void *node,
+static css_error node_has_name(void *UNUSED(pw), void *node,
 							   const css_qname *qname, bool *outMatch) {
-	UNUSED(pw);
 	lwc_string *name = qname->name;
-	NSString *nameString = [[NSString alloc] initWithBytesNoCopy:lwc_string_data(name) length:lwc_string_length(name) encoding:NSUTF8StringEncoding freeWhenDone:NO];
+	NSString *nameString = [[NSString alloc] initWithBytesNoCopy:(void *)lwc_string_data(name) length:lwc_string_length(name) encoding:NSUTF8StringEncoding freeWhenDone:NO];
 	
 	*outMatch = [[(CXMLElement *)node name] isEqualToString:nameString];
 	[nameString release];
 	return CSS_OK;
 }
 
-static css_error node_has_class(void *pw, void *n, lwc_string *name,
+static css_error node_has_class(void *UNUSED(pw), void *n, lwc_string *name,
                                 bool *match) {
-	UNUSED(pw); UNUSED(n); UNUSED(name);
 	*match = false;
 	return CSS_OK;
 }
 
-static css_error node_has_id(void *pw, void *n, lwc_string *name, bool *match) {
-	UNUSED(pw); UNUSED(n); UNUSED(name);
+static css_error node_has_id(void *UNUSED(pw), void *n, lwc_string *name, bool *match) {
 	*match = false;
+	DIE_UNIMPLEMENTED();
 	return CSS_OK;
 }
 
-static css_error node_has_attribute(void *pw, void *node,
+static css_error node_has_attribute(void *UNUSED(pw), void *node,
 									const css_qname *qname, bool *match) {
 	lwc_string *name = qname->name;
 	NSString *attributeNameString = [[NSString alloc] initWithLWCString:name];
@@ -164,7 +171,7 @@ static css_error node_has_attribute(void *pw, void *node,
 	return CSS_OK;
 }
 
-static css_error node_has_attribute_equal(void *pw, void *node,
+static css_error node_has_attribute_equal(void *UNUSED(pw), void *node,
 										  const css_qname *qname, lwc_string *value,
 										  bool *outMatch) {
 	lwc_string *name = qname->name;
@@ -172,7 +179,7 @@ static css_error node_has_attribute_equal(void *pw, void *node,
 	CXMLNode *attribute = [(CXMLElement *)node attributeForName:attributeNameString];
 	if (attribute) {
 		NSString *attributeValueString = [[NSString alloc] initWithLWCString:value];
-		*outMatch = [attributeValueString isEqualToString:attributeValueString];
+		*outMatch = [[attribute stringValue] isEqualToString:attributeValueString];
 		[attributeValueString release];
 	} else {
 		*outMatch = NO;
@@ -181,132 +188,155 @@ static css_error node_has_attribute_equal(void *pw, void *node,
 	return CSS_OK;
 }
 
-static css_error node_has_attribute_dashmatch(void *pw, void *node,
+static css_error node_has_attribute_dashmatch(void *UNUSED(pw), void *node,
 											  const css_qname *qname, lwc_string *value,
 											  bool *match) {
-	UNUSED(pw); UNUSED(node); UNUSED(qname); UNUSED(value);
 	*match = false;
+	DIE_UNIMPLEMENTED();
 	return CSS_OK;
 }
 
-static css_error node_has_attribute_includes(void *pw, void *node,
+static css_error node_has_attribute_includes(void *UNUSED(pw), void *node,
 											 const css_qname *qname, lwc_string *value,
 											 bool *match) {
-	UNUSED(pw); UNUSED(node); UNUSED(qname); UNUSED(value);
 	*match = false;
+	DIE_UNIMPLEMENTED();
 	return CSS_OK;
 }
 
-static css_error node_has_attribute_prefix(void *pw, void *node,
+static css_error node_has_attribute_prefix(void *UNUSED(pw), void *node,
 										   const css_qname *qname, lwc_string *value,
 										   bool *match) {
-	UNUSED(pw); UNUSED(node); UNUSED(qname); UNUSED(value);
 	*match = false;
+	DIE_UNIMPLEMENTED();
 	return CSS_OK;
 }
 
-static css_error node_has_attribute_suffix(void *pw, void *node,
+static css_error node_has_attribute_suffix(void *UNUSED(pw), void *node,
 										   const css_qname *qname, lwc_string *value,
 										   bool *match) {
-	UNUSED(pw); UNUSED(node); UNUSED(qname); UNUSED(value);
 	*match = false;
+	DIE_UNIMPLEMENTED();
 	return CSS_OK;
 }
 
-static css_error node_has_attribute_substring(void *pw, void *node,
+static css_error node_has_attribute_substring(void *UNUSED(pw), void *node,
 											  const css_qname *qname, lwc_string *value,
 											  bool *match) {
-	UNUSED(pw); UNUSED(node); UNUSED(qname); UNUSED(value);
 	*match = false;
+	DIE_UNIMPLEMENTED();
 	return CSS_OK;
 }
 
-static css_error node_is_root(void *pw, void *n, bool *match) {
-	UNUSED(pw); UNUSED(n);
-	*match = false;
+static css_error node_is_root(void *UNUSED(pw), void *node, bool *match) {
+	*match = [(CXMLElement *)node rootDocument] == node;
 	return CSS_OK;
 }
 
-static css_error node_count_siblings(void *pw, void *n,
+static css_error node_count_siblings(void *UNUSED(pw), void *node,
 									 bool same_name, bool after, int32_t *count) {
-	UNUSED(pw); UNUSED(n); UNUSED(same_name); UNUSED(after);
-	//TODO: should I return -1 or something instead here to say un-impl?
-	*count = 0;
+	int32_t cnt = 0;
+	
+	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+	
+	CXMLElement *element = (CXMLElement *)node;
+	NSString *nodeName = [element name];
+	
+	if (after) {
+		CXMLNode *nextNode = [element nextSibling];
+		while (nextNode) {
+			if (!same_name || [[nextNode name] isEqualToString:nodeName]) {
+				cnt++;
+			}			
+			nextNode = [nextNode nextSibling];
+		}
+	} else {
+		CXMLNode *previousNode = [element previousSibling];
+		while (previousNode) {
+			if (!same_name || [[previousNode name] isEqualToString:nodeName]) {
+				cnt++;
+			}			
+			previousNode = [previousNode previousSibling];
+		}
+	}
+	
+	[pool drain];
+	*count = cnt;
+	
 	return CSS_OK;
 }
 
-static css_error node_is_empty(void *pw, void *n, bool *match) {
-	UNUSED(pw); UNUSED(n);
+static css_error node_is_empty(void *UNUSED(pw), void *n, bool *match) {
 	*match = false;
+	DIE_UNIMPLEMENTED();
 	return CSS_OK;
 }
 
-static css_error node_is_link(void *pw, void *n, bool *match) {
-	UNUSED(pw); UNUSED(n);
+static css_error node_is_link(void *UNUSED(pw), void *n, bool *match) {
 	*match = false;
+	DIE_UNIMPLEMENTED();
 	return CSS_OK;
 }
 
-static css_error node_is_visited(void *pw, void *n, bool *match) {
-	UNUSED(pw); UNUSED(n);
+static css_error node_is_visited(void *UNUSED(pw), void *n, bool *match) {
 	*match = false;
+	DIE_UNIMPLEMENTED();
 	return CSS_OK;
 }
 
-static css_error node_is_hover(void *pw, void *n, bool *match) {
-	UNUSED(pw); UNUSED(n);
+static css_error node_is_hover(void *UNUSED(pw), void *n, bool *match) {
 	*match = false;
+	DIE_UNIMPLEMENTED();
 	return CSS_OK;
 }
 
-static css_error node_is_active(void *pw, void *n, bool *match) {
-	UNUSED(pw); UNUSED(n);
+static css_error node_is_active(void *UNUSED(pw), void *n, bool *match) {
 	*match = false;
+	DIE_UNIMPLEMENTED();
 	return CSS_OK;
 }
 
-static css_error node_is_focus(void *pw, void *n, bool *match) {
-	UNUSED(pw); UNUSED(n);
+static css_error node_is_focus(void *UNUSED(pw), void *n, bool *match) {
 	*match = false;
+	DIE_UNIMPLEMENTED();
 	return CSS_OK;
 }
 
-static css_error node_is_enabled(void *pw, void *n, bool *match) {
-	UNUSED(pw); UNUSED(n);
+static css_error node_is_enabled(void *UNUSED(pw), void *n, bool *match) {
 	//TODO: is this the best for un-impl?
 	*match = true;
+	DIE_UNIMPLEMENTED();
 	return CSS_OK;
 }
 
-static css_error node_is_disabled(void *pw, void *n, bool *match) {
-	UNUSED(pw); UNUSED(n);
+static css_error node_is_disabled(void *UNUSED(pw), void *n, bool *match) {
 	*match = false;
+	DIE_UNIMPLEMENTED();
 	return CSS_OK;
 }
 
-static css_error node_is_checked(void *pw, void *n, bool *match) {
-	UNUSED(pw); UNUSED(n);
+static css_error node_is_checked(void *UNUSED(pw), void *n, bool *match) {
 	*match = false;
+	DIE_UNIMPLEMENTED();
 	return CSS_OK;
 }
 
-static css_error node_is_target(void *pw, void *n, bool *match) {
-	UNUSED(pw); UNUSED(n);
+static css_error node_is_target(void *UNUSED(pw), void *n, bool *match) {
 	*match = false;
+	DIE_UNIMPLEMENTED();
 	return CSS_OK;
 }
 
-static css_error node_is_lang(void *pw, void *n, lwc_string *lang,
+static css_error node_is_lang(void *UNUSED(pw), void *n, lwc_string *lang,
                               bool *match) {
-	UNUSED(pw); UNUSED(n); UNUSED(lang);
 	*match = false;
+	DIE_UNIMPLEMENTED();
 	return CSS_OK;
 }
 
 // "base" value for property (inherit for all properties)
-static css_error node_presentational_hint(void *pw, void *node,
+static css_error node_presentational_hint(void *UNUSED(pw), void *node,
                                           uint32_t property, css_hint *hint) {
-	UNUSED(pw); UNUSED(node); UNUSED(property); UNUSED(hint);
 	// a bit nasty: all *_INHERIT flags are 0, so simply set this to 0
 	hint->status = 0;
 	/*switch (property) {
@@ -321,9 +351,8 @@ static css_error node_presentational_hint(void *pw, void *node,
 	return CSS_OK;
 }
 
-static css_error ua_default_for_property(void *pw, uint32_t property,
+static css_error ua_default_for_property(void *UNUSED(pw), uint32_t property,
                                          css_hint *hint) {
-	UNUSED(pw);
 	if (property == CSS_PROP_COLOR) {
 		hint->data.color = 0xff000000;
 		hint->status = CSS_COLOR_COLOR;
@@ -345,7 +374,7 @@ static css_error ua_default_for_property(void *pw, uint32_t property,
 	return CSS_OK;
 }
 
-static css_error compute_font_size(void *pw, const css_hint *parent,
+static css_error compute_font_size(void *UNUSED(pw), const css_hint *parent,
                                    css_hint *size) {
 	static css_hint_length sizes[] = {
 		{ FLTTOFIX(6.75), CSS_UNIT_PT },
@@ -358,7 +387,6 @@ static css_error compute_font_size(void *pw, const css_hint *parent,
 	};
 	const css_hint_length *parent_size;
 	
-	UNUSED(pw);
 	
 	// Grab parent size, defaulting to medium if none
 	if (parent == NULL) {

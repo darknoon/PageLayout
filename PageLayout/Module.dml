@@ -28,13 +28,13 @@
 	<page>
 		<img id="231" style="10px; top:30px; width:340px; height:180px" />
 		<!--Text flows in order within these boxes-->
-		<text-box story="13132" style="left:0px; top:0px; width:384px; height:1000px;" />
-		<text-box story="13132" style="left:384px; top:0px; width:384px; height:1000px;"/>
+		<text-box story="13132" />
+		<text-box story="13132" />
 	</page>
 
 	<page>
-		<text-box story="13132" style="left:0px; top:0px; width:384px; height:1000px;" />
-		<text-box story="13132" style="left:384px; top:0px; width:384px; height:1000px;"/>
+		<text-box story="13132" />
+		<text-box story="13132" />
 	</page>
 
 </rep>
@@ -42,18 +42,29 @@
 <rep type="pad-landscape">
 	<page>
 		<!--Text flows in order within these boxes-->
-		<text-box story="13132" style="left:0px; top:0px; width:340px; height:748px;" />
-		<text-box story="13132" style="left:340px; top:0px; width:340px; height:748px;" />
-		<text-box story="13132" style="left:680px; top:0px; width:340px; height:748px;" />
+		<text-box story="13132" />
+		<text-box story="13132" />
+		<text-box story="13132" />
 	</page>
 	<page>
 		<!--Text flows in order within these boxes-->
-		<text-box story="13132" style="left:0px; top:0px; width:340px; height:748px;" />
-		<text-box story="13132" style="left:340px; top:0px; width:340px; height:748px;" />
-		<text-box story="13132" style="left:680px; top:0px; width:340px; height:748px;" />
+		<text-box story="13132" />
+		<text-box story="13132" />
+		<text-box story="13132" />
 	</page>
 
 </rep>
 
+<rep type="phone-portrait">
+	<page>
+		<text-box story="13132" />
+	</page>
+	<page>
+		<text-box story="13132" />
+	</page>
+	<page>
+		<text-box story="13132" />
+	</page>
+</rep>
 
 </module>

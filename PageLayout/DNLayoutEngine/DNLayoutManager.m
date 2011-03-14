@@ -45,7 +45,7 @@
 	NSError *error = nil;
 
 	NSString *modulePath = [[NSBundle mainBundle] pathForResource:@"Module" ofType:@"dml"];
-	NSData *moduleData = [[NSData alloc] initWithContentsOfFile:modulePath];
+	NSData *moduleData = [[[NSData alloc] initWithContentsOfFile:modulePath] autorelease];
 	
 	if (!moduleData) {
 		[self release];
@@ -91,11 +91,24 @@
 	return [_module pageCount];
 }
 
+- (CGRect)pageBoundsForInterfaceIdiom:(UIUserInterfaceIdiom)inIdiom orientation:(UIInterfaceOrientation)inInterfaceOrientation;
+{
+	if (inIdiom == UIUserInterfaceIdiomPad) {
+		if (UIInterfaceOrientationIsPortrait(inInterfaceOrientation)) {
+			return (CGRect) {.size.width = 768.f, .size.height = 1024.f - 20.f}; // page.bounds;;
+		} else {
+			return (CGRect) {.size.width = 1024.f, .size.height = 768.f - 20.f}; // page.bounds;;
+		}
+	} else {
+		return (CGRect) {.size.width = 320.f, .size.height = 480.f - 20.f};
+	}
+}
+
 - (UIView *)pageViewForIndex:(NSUInteger)inIndex orientation:(UIInterfaceOrientation)inInterfaceOrientation;
 {
 	DNLayoutPage *page = [_module pageAtIndex:inIndex forOrientation:inInterfaceOrientation];
 	
-	CGRect pageBounds = (CGRect) {.size.width = 768.f, .size.height = 1024.f - 20.f}; // page.bounds;
+	CGRect pageBounds = [self pageBoundsForInterfaceIdiom:[UIDevice currentDevice].userInterfaceIdiom orientation:inInterfaceOrientation];
 	
 	UIView *pageView = [[[UIView alloc] initWithFrame:pageBounds] autorelease];
 	

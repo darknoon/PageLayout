@@ -37,10 +37,7 @@
 		[self release];
 		return nil;
 	}
-	
-	[self createPagesForOrientation:UIInterfaceOrientationPortrait];
-	[self createPagesForOrientation:UIInterfaceOrientationLandscapeLeft];
-	
+		
 	NSData *stylesheetData = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"Global" ofType:@"css"]];
 	
 	DNCSSStylesheet *stylesheet = [[[DNCSSStylesheet alloc] initWithData:stylesheetData
@@ -89,7 +86,6 @@
 	NSMutableArray *pagesMutable = [NSMutableArray array];
 	
 	NSString *repName = [DNLayoutModule repNameForIdiom:[[UIDevice currentDevice] userInterfaceIdiom] orientation:inOrientation];
-	
 	NSString *pagesXPath = [NSString stringWithFormat:@"//rep[@type='%@']//page", repName];
 	
 	NSError *error = nil;
@@ -114,17 +110,27 @@
 
 - (NSUInteger)pageCount;
 {
+	//TODO: do this in a better way!
+	if (!_pagesPortrait) {
+		[self createPagesForOrientation:UIInterfaceOrientationPortrait];
+	}
 	return _pagesPortrait.count;
 }
 
 - (DNLayoutPage *)pageAtIndex:(NSUInteger)inIndex forOrientation:(UIInterfaceOrientation)inInterfaceOrientation;
 {
+	if (UIInterfaceOrientationIsPortrait(inInterfaceOrientation) && !_pagesPortrait) {
+		[self createPagesForOrientation:inInterfaceOrientation];
+	} else if (UIInterfaceOrientationIsLandscape(inInterfaceOrientation) && !_pagesLandscape) {
+		[self createPagesForOrientation:inInterfaceOrientation];
+	}
+	
 	return UIInterfaceOrientationIsPortrait(inInterfaceOrientation) ? [_pagesPortrait objectAtIndex:inIndex]: [_pagesLandscape objectAtIndex:inIndex];
 }
 
 - (DNCSSStyle *)computedStyleForElement:(CXMLElement *)inElement withInlineStylesheet:(DNCSSStylesheet *)inStylesheet;
 {
-	return [_cssContext computedStyleForNode:inElement inlineStylesheet:inStylesheet withSelectHandlers:&CSSSelectHandler_CXML];
+	return [_cssContext computedStyleForNode:inElement inlineStylesheet:inStylesheet withSelectHandlers:(css_select_handler *)&CSSSelectHandler_CXML];
 }
 
 #pragma mark -
