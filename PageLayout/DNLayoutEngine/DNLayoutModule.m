@@ -10,10 +10,9 @@
 
 #import "DNLayoutPage.h"
 
-#import "CXMLDocument.h"
-
 #import "DNCSS.h"
 #import "CXML_libcss.h"
+#import "TouchXML.h"
 
 #import "UIFont+CoreTextExtensions.h"
 
@@ -152,41 +151,104 @@
 	return self.stories.count;
 }
 
+- (NSDictionary *)textAttributesForStyle:(DNCSSStyle *)inStyle;
+{
+	NSMutableDictionary *mutableAttributes = [NSMutableDictionary dictionary];
+	
+	//color
+	if ([inStyle color]) {
+		[mutableAttributes setObject:(id)[[inStyle color] CGColor] forKey:(id)kCTForegroundColorAttributeName];
+	}
+	
+	[mutableAttributes setObject:[NSNumber numberWithFloat:[inStyle fontSize]] forKey:(id)kCTFontSizeAttribute];
+	
+	CTFontRef font = [inStyle font];
+	if (font) {
+		[mutableAttributes setObject:(id)font forKey:(id)kCTFontAttributeName];
+	}
+	
+	return mutableAttributes;
+}
+
+- (void)appendNode:(CXMLNode *)inNode toString:(NSMutableAttributedString *)inString withParentStyle:(DNCSSStyle *)inParentStyle;
+{
+	//TODO: Where do we merge style from the story with style from the text box
+	
+	if ([inNode kind] == CXMLElementKind) {
+		CXMLElement *element = (CXMLElement *)inNode;
+		
+		NSString *inlineStyle = [[element attributeForName:@"style"] stringValue];
+		DNCSSStylesheet *inlineStylesheet = nil;
+		if (inlineStyle) {
+			NSError *error = nil;
+			inlineStylesheet = [[DNCSSStylesheet alloc] initWithData:[inlineStyle dataUsingEncoding:NSUTF8StringEncoding] baseURL:nil isInline:YES error:&error];
+			if (!inlineStylesheet) {
+				NSLog(@"Error reading story inline stylesheet (\"%@\"): %@", inlineStyle, error);
+			}
+		}
+		DNCSSStyle *elementStyle = [self computedStyleForElement:element withInlineStylesheet:inlineStylesheet];
+		NSError *error = nil;
+		//merge with parent style if provided
+		if (inParentStyle) {
+			elementStyle = [inParentStyle styleByMergingWithStyle:elementStyle withSelectHandlers:(css_select_handler *)&CSSSelectHandler_CXML error:&error];
+			if (!elementStyle) {
+				NSLog(@"Error merging style with parent for element: %@", element);
+			}
+		}
+		
+		//Recur to children
+		for (CXMLNode *node in [element children]) {
+			[self appendNode:node toString:inString withParentStyle:elementStyle];
+		}
+		
+	} else if ([inNode kind] == CXMLTextKind) {
+		//Append to string with parent
+		NSAttributedString *styledText = [[NSAttributedString alloc] initWithString:[inNode stringValue] attributes:[self textAttributesForStyle:inParentStyle]];
+		
+		[inString appendAttributedString:styledText];
+		[styledText release];
+	} else {
+		NSLog(@"How do we handle this kind??: %@", inNode);
+	}
+}
+
 - (NSAttributedString *)attributedStringForStoryAtIndex:(NSUInteger)inIndex;
 {
-	CFIndex theNumberOfSettings = 6;
-	CTLineBreakMode lineBreakMode = kCTLineBreakByWordWrapping;
-	CTTextAlignment textAlignment = kCTLeftTextAlignment;
-	CGFloat indent = 10.0;
-	CGFloat spacing = 15.0;
-	CGFloat topSpacing = 5.0;
-	CGFloat lineSpacing = 1.0;
-	CTParagraphStyleSetting theSettings[6] =
-	{
-		{ kCTParagraphStyleSpecifierAlignment, sizeof(CTTextAlignment), &textAlignment },
-		{ kCTParagraphStyleSpecifierLineBreakMode, sizeof(CTLineBreakMode), &lineBreakMode },
-		{ kCTParagraphStyleSpecifierFirstLineHeadIndent, sizeof(CGFloat), &indent },
-		{ kCTParagraphStyleSpecifierParagraphSpacing, sizeof(CGFloat), &spacing },
-		{ kCTParagraphStyleSpecifierParagraphSpacingBefore, sizeof(CGFloat), &topSpacing },
-		{ kCTParagraphStyleSpecifierLineSpacing, sizeof(CGFloat), &lineSpacing }
-	};
-	
-	CTParagraphStyleRef paragraphStyle = CTParagraphStyleCreate(theSettings, theNumberOfSettings);
-	
-	
-	UIFont *font = [UIFont fontWithName:@"Baskerville" size:18];
-	NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys: (id)[font CTFont], kCTFontAttributeName,
-								paragraphStyle, kCTParagraphStyleAttributeName, nil];
-	CFRelease(paragraphStyle);
-	
+//	CFIndex theNumberOfSettings = 6;
+//	CTLineBreakMode lineBreakMode = kCTLineBreakByWordWrapping;
+//	CTTextAlignment textAlignment = kCTLeftTextAlignment;
+//	CGFloat indent = 10.0;
+//	CGFloat spacing = 15.0;
+//	CGFloat topSpacing = 5.0;
+//	CGFloat lineSpacing = 1.0;
+//	CTParagraphStyleSetting theSettings[6] =
+//	{
+//		{ kCTParagraphStyleSpecifierAlignment, sizeof(CTTextAlignment), &textAlignment },
+//		{ kCTParagraphStyleSpecifierLineBreakMode, sizeof(CTLineBreakMode), &lineBreakMode },
+//		{ kCTParagraphStyleSpecifierFirstLineHeadIndent, sizeof(CGFloat), &indent },
+//		{ kCTParagraphStyleSpecifierParagraphSpacing, sizeof(CGFloat), &spacing },
+//		{ kCTParagraphStyleSpecifierParagraphSpacingBefore, sizeof(CGFloat), &topSpacing },
+//		{ kCTParagraphStyleSpecifierLineSpacing, sizeof(CGFloat), &lineSpacing }
+//	};
+//	
+//	CTParagraphStyleRef paragraphStyle = CTParagraphStyleCreate(theSettings, theNumberOfSettings);
+//	
+//	
+//	UIFont *font = [UIFont fontWithName:@"Baskerville" size:18];
+//	NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys: (id)[font CTFont], kCTFontAttributeName,
+//								paragraphStyle, kCTParagraphStyleAttributeName, nil];
+//	CFRelease(paragraphStyle);
+//	
 	//Get the story
 	
 	CXMLElement *story = [self.stories objectAtIndex:inIndex];
 	
-	NSAttributedString *attributedSting = [[[NSAttributedString alloc] initWithString:[story stringValue]
-																		   attributes:attributes] autorelease];
+	NSMutableAttributedString *mutableAttributedSting = [[NSMutableAttributedString alloc] init];
+	[self appendNode:story toString:mutableAttributedSting withParentStyle:nil];
 	
-	return attributedSting;
+	NSAttributedString *immutableString = [[mutableAttributedSting copy] autorelease];
+	[mutableAttributedSting release];
+	return immutableString;
 }
 
 @end

@@ -62,7 +62,7 @@
 	NSMutableArray *pagesMutable = [NSMutableArray array];
 	for (int i=0; i<nPages; i++) {
 		UIView *page = [textLayoutManager pageViewForIndex:i orientation:inInterfaceOrientation];
-		page.backgroundColor = [UIColor greenColor];
+		page.backgroundColor = [UIColor whiteColor];
 		
 		page.frame = (CGRect) {
 			.origin.x = i * pageScrollView.frame.size.width,
@@ -112,16 +112,23 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    // Return YES for supported orientations
-	return YES;
+	if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
+		return YES;
+	} else {
+		return interfaceOrientation == UIInterfaceOrientationPortrait;
+	}
 }
 
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_3_0);
 {
-	CATransition *transition = [CATransition animation];
-	transition.type = kCATransitionFade;
-	[self.view.layer addAnimation:transition forKey:kCATransition];
-	[self setupPagesForOrientation:toInterfaceOrientation];
+	if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
+		CATransition *transition = [CATransition animation];
+		transition.type = kCATransitionFade;
+		[pageScrollView.layer addAnimation:transition forKey:kCATransition];
+		[self setupPagesForOrientation:toInterfaceOrientation];
+		
+		//TODO: Scroll to even page
+	}
 }
 
 @end

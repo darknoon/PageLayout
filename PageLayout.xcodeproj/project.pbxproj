@@ -13,7 +13,6 @@
 		4900F5F3132DE58B0013DC31 /* DNLayoutPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4900F5F2132DE5870013DC31 /* DNLayoutPage.m */; };
 		4900F5F6132DE8D70013DC31 /* DNLayoutTextBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 4900F5F5132DE8D00013DC31 /* DNLayoutTextBox.m */; };
 		4900F5FA132E11980013DC31 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4900F5F9132E11970013DC31 /* QuartzCore.framework */; };
-		4900F611132E14490013DC31 /* liblibnetsurf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4900F610132E14480013DC31 /* liblibnetsurf.a */; };
 		49209C7C132DA04C00DAF284 /* CXMLDocument_CreationExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 49209C77132DA04C00DAF284 /* CXMLDocument_CreationExtensions.m */; };
 		49209C7D132DA04C00DAF284 /* CXMLNode_CreationExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 49209C79132DA04C00DAF284 /* CXMLNode_CreationExtensions.m */; };
 		49209C7E132DA04C00DAF284 /* CXHTMLDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 49209C61132DA04C00DAF284 /* CXHTMLDocument.m */; };
@@ -28,6 +27,7 @@
 		49209C87132DA04C00DAF284 /* CXMLNode_XPathExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 49209C73132DA04C00DAF284 /* CXMLNode_XPathExtensions.m */; };
 		49209C88132DA04C00DAF284 /* CTidy.m in Sources */ = {isa = PBXBuildFile; fileRef = 49209C7B132DA04C00DAF284 /* CTidy.m */; };
 		492C25BE1323164100325437 /* UIFont+CoreTextExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 492C25BD1323164100325437 /* UIFont+CoreTextExtensions.m */; };
+		494D4F2C132F6BF100C2C75C /* liblibnetsurf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 494D4F2B132F6BF000C2C75C /* liblibnetsurf.a */; };
 		49A02D5F132E191300A336EE /* NSError-css.m in Sources */ = {isa = PBXBuildFile; fileRef = 49A02D5A132E191300A336EE /* NSError-css.m */; };
 		49A02D60132E191300A336EE /* NSString-wapcaplet.m in Sources */ = {isa = PBXBuildFile; fileRef = 49A02D5C132E191300A336EE /* NSString-wapcaplet.m */; };
 		49A02D61132E191300A336EE /* UIColor-CSSColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 49A02D5E132E191300A336EE /* UIColor-CSSColor.m */; };
@@ -38,7 +38,6 @@
 		49AD60A413218F5D00D620D3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 49AD60A313218F5D00D620D3 /* main.m */; };
 		49AD60A713218F5D00D620D3 /* PageLayoutAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 49AD60A613218F5D00D620D3 /* PageLayoutAppDelegate.m */; };
 		49AD60AA13218F5D00D620D3 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49AD60A813218F5D00D620D3 /* MainWindow.xib */; };
-		49AD60B11321918600D620D3 /* Story.plist in Resources */ = {isa = PBXBuildFile; fileRef = 49AD60B01321918600D620D3 /* Story.plist */; };
 		49AD60B4132192C400D620D3 /* StoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49AD60B3132192C400D620D3 /* StoryViewController.m */; };
 		49AD60B71321939400D620D3 /* DNTextFrameView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49AD60B61321939400D620D3 /* DNTextFrameView.m */; };
 		49AD60BA132193C900D620D3 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49AD60B9132193C900D620D3 /* CoreText.framework */; };
@@ -60,6 +59,13 @@
 			proxyType = 2;
 			remoteGlobalIDString = 497A8D8C13257B7F00F3BFFB;
 			remoteInfo = libnetsurfTests;
+		};
+		494D4F29132F6B0400C2C75C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4900F607132E14390013DC31 /* libnetsurf.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 497A8D7E13257B7F00F3BFFB;
+			remoteInfo = libnetsurf;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -112,6 +118,7 @@
 		49209C7B132DA04C00DAF284 /* CTidy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTidy.m; sourceTree = "<group>"; };
 		492C25BC1323164100325437 /* UIFont+CoreTextExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+CoreTextExtensions.h"; sourceTree = "<group>"; };
 		492C25BD1323164100325437 /* UIFont+CoreTextExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+CoreTextExtensions.m"; sourceTree = "<group>"; };
+		494D4F2B132F6BF000C2C75C /* liblibnetsurf.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = liblibnetsurf.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		49A02D59132E191300A336EE /* NSError-css.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSError-css.h"; path = "Externals/netsurf-ios/libnetsurf/NSError-css.h"; sourceTree = "<group>"; };
 		49A02D5A132E191300A336EE /* NSError-css.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSError-css.m"; path = "Externals/netsurf-ios/libnetsurf/NSError-css.m"; sourceTree = "<group>"; };
 		49A02D5B132E191300A336EE /* NSString-wapcaplet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString-wapcaplet.h"; path = "Externals/netsurf-ios/libnetsurf/NSString-wapcaplet.h"; sourceTree = "<group>"; };
@@ -129,7 +136,6 @@
 		49AD60A513218F5D00D620D3 /* PageLayoutAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PageLayoutAppDelegate.h; sourceTree = "<group>"; };
 		49AD60A613218F5D00D620D3 /* PageLayoutAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PageLayoutAppDelegate.m; sourceTree = "<group>"; };
 		49AD60A913218F5D00D620D3 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
-		49AD60B01321918600D620D3 /* Story.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Story.plist; sourceTree = "<group>"; };
 		49AD60B2132192C400D620D3 /* StoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoryViewController.h; sourceTree = "<group>"; };
 		49AD60B3132192C400D620D3 /* StoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoryViewController.m; sourceTree = "<group>"; };
 		49AD60B51321939400D620D3 /* DNTextFrameView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DNTextFrameView.h; path = DNLayoutEngine/DNTextFrameView.h; sourceTree = "<group>"; };
@@ -145,7 +151,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4900F611132E14490013DC31 /* liblibnetsurf.a in Frameworks */,
+				494D4F2C132F6BF100C2C75C /* liblibnetsurf.a in Frameworks */,
 				4900F5FA132E11980013DC31 /* QuartzCore.framework in Frameworks */,
 				49AD60BA132193C900D620D3 /* CoreText.framework in Frameworks */,
 				49AD609713218F5D00D620D3 /* UIKit.framework in Frameworks */,
@@ -258,7 +264,7 @@
 		49AD608713218F5C00D620D3 = {
 			isa = PBXGroup;
 			children = (
-				4900F610132E14480013DC31 /* liblibnetsurf.a */,
+				494D4F2B132F6BF000C2C75C /* liblibnetsurf.a */,
 				4900F5F9132E11970013DC31 /* QuartzCore.framework */,
 				49AD609C13218F5D00D620D3 /* PageLayout */,
 				49AD609513218F5D00D620D3 /* Frameworks */,
@@ -278,6 +284,7 @@
 		49AD609513218F5D00D620D3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4900F610132E14480013DC31 /* liblibnetsurf.a */,
 				49209C5C132D9A4A00DAF284 /* liblibnetsurf.a */,
 				49AD60B9132193C900D620D3 /* CoreText.framework */,
 				49AD609613218F5D00D620D3 /* UIKit.framework */,
@@ -293,7 +300,6 @@
 				49AD60A513218F5D00D620D3 /* PageLayoutAppDelegate.h */,
 				49AD60A613218F5D00D620D3 /* PageLayoutAppDelegate.m */,
 				49AD60A813218F5D00D620D3 /* MainWindow.xib */,
-				49AD60B01321918600D620D3 /* Story.plist */,
 				4900F5D8132DA9E70013DC31 /* Module.dml */,
 				49E99DDD132EA574008E1545 /* Global.css */,
 				49AD60B2132192C400D620D3 /* StoryViewController.h */,
@@ -350,6 +356,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				494D4F2A132F6B0400C2C75C /* PBXTargetDependency */,
 			);
 			name = PageLayout;
 			productName = PageLayout;
@@ -411,7 +418,6 @@
 			files = (
 				49AD60A113218F5D00D620D3 /* InfoPlist.strings in Resources */,
 				49AD60AA13218F5D00D620D3 /* MainWindow.xib in Resources */,
-				49AD60B11321918600D620D3 /* Story.plist in Resources */,
 				4900F5D9132DA9E70013DC31 /* Module.dml in Resources */,
 				49E99DDE132EA574008E1545 /* Global.css in Resources */,
 			);
@@ -454,6 +460,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		494D4F2A132F6B0400C2C75C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = libnetsurf;
+			targetProxy = 494D4F29132F6B0400C2C75C /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		49AD609F13218F5D00D620D3 /* InfoPlist.strings */ = {

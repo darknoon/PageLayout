@@ -114,7 +114,7 @@
 	
 	for (DNLayoutTextBox *box in [page textBoxes]) {
 		DNTextFrameView *textFrameView = [[[DNTextFrameView alloc] initWithFrame:[box frame]] autorelease];
-		textFrameView.backgroundColor = [UIColor yellowColor];
+		textFrameView.backgroundColor = [UIColor clearColor];
 		
 		[self addTextFrameView:textFrameView];
 		[pageView addSubview:textFrameView];
@@ -140,10 +140,10 @@
 
 - (void)layoutTextInViews;
 {
+	[_frames removeAllObjects];
 	if (framesetter) {
 		CFRelease(framesetter);
 	}
-	[_frames removeAllObjects];
 	
 	framesetter = CTFramesetterCreateWithAttributedString((CFAttributedStringRef)_attributedText);
 	

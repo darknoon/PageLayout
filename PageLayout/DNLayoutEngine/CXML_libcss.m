@@ -376,6 +376,10 @@ static css_error ua_default_for_property(void *UNUSED(pw), uint32_t property,
 
 static css_error compute_font_size(void *UNUSED(pw), const css_hint *parent,
                                    css_hint *size) {
+	
+	//TODO: implement this properly!!
+	
+	
 	static css_hint_length sizes[] = {
 		{ FLTTOFIX(6.75), CSS_UNIT_PT },
 		{ FLTTOFIX(7.50), CSS_UNIT_PT },

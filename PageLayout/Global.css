@@ -1,3 +1,28 @@
+story {
+	/* Important: story must have a definition of font size for the cascade to work correctly! */
+	font-family: "Baskerville", serif;
+	font-size: 18px;
+	color: #330000;
+}
+
+h1, h2, h3, h4, h5 {
+	font-family: "Baskerville", serif;
+	font-weight: bold;
+	color: #336699;
+}
+
+h1 {
+	font-size: 24px;
+}
+
+em {
+	font-weight: bold;
+	font-style: italic;
+	color: #ce6b18;
+}
+
+/* @group Text box styles */
+
 text-box {
 	background-color: #ffcc00;
 	color: #003333;
@@ -17,12 +42,9 @@ rep[type="pad-portrait"] text-box:nth-of-type(2) {
 	left: 384px;
 }
 
-
-
-
 rep[type="pad-landscape"] text-box {
-	width:340px;
-	height:748px;
+	width: 340px;
+	height: 748px;
 }
 
 rep[type="pad-landscape"] text-box:nth-of-type(1) {
@@ -37,10 +59,11 @@ rep[type="pad-landscape"] text-box:nth-of-type(3) {
 	left: 680px;
 }
 
-
 rep[type="phone-portrait"] text-box {
 	left: 0;
 	top: 0;
 	width: 320px;
 	height: 460px;
 }
+
+/* @end */
