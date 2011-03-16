@@ -16,6 +16,8 @@
 @interface DNLayoutModule : NSObject {
     CXMLDocument *_module;
 	
+	NSURL *_baseURL;
+	
 	//Stories are just the XML nodes for now
 	NSArray *_stories;
 	
@@ -24,7 +26,7 @@
 	DNCSSContext *_cssContext;
 }
 
-- (id)initWithData:(NSData *)inData error:(NSError **)outError;
+- (id)initWithData:(NSData *)inData baseURL:(NSURL *)inBaseURL error:(NSError **)outError;
 
 @property (nonatomic, readonly) DNCSSContext *cssContext;
 

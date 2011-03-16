@@ -21,7 +21,10 @@
 	NSMutableArray *_frames;
 	NSAttributedString *_attributedText;
 	DNLayoutModule *_module;
+	NSString *_modulePath;
 }
+
+- (id)initWithModulePath:(NSString *)inModulePath;
 
 @property (nonatomic, copy) NSAttributedString *attributedText;
 

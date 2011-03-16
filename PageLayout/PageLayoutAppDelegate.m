@@ -7,7 +7,6 @@
 //
 
 #import "PageLayoutAppDelegate.h"
-#import "StoryViewController.h"
 
 @implementation PageLayoutAppDelegate
 
@@ -16,8 +15,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-	storyViewController = [[StoryViewController alloc] initWithNibName:nil bundle:nil];
-	[self.window addSubview:storyViewController.view];
 	
 	[self.window makeKeyAndVisible];
     return YES;
@@ -64,7 +61,6 @@
 
 - (void)dealloc
 {
-	[storyViewController release];
 	[_window release];
     [super dealloc];
 }

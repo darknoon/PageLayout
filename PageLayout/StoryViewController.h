@@ -16,8 +16,12 @@
 	
 	UIScrollView *pageScrollView;
 	
+	NSString *_modulePath;
+	
 	//A page in an UIView with text frame subviews
 	NSArray *_pages;
 }
+
+- (id)initWithModulePath:(NSString *)inModulePath;
 
 @end

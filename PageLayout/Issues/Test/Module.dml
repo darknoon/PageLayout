@@ -4,6 +4,7 @@
 
 <!--Links to necessary media-->
 
+<link type="text/css" rel="stylesheet" href="Global.css" media="screen" />
 <link id="231" type="image/png" href="images/231.png" />
 
 <!--Links to more tiled media??-->

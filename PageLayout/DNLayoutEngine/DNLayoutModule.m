@@ -23,10 +23,12 @@
 @implementation DNLayoutModule
 @synthesize cssContext = _cssContext;
 
-- (id)initWithData:(NSData *)inData error:(NSError **)outError;
+- (id)initWithData:(NSData *)inData baseURL:(NSURL *)inBaseURL error:(NSError **)outError;
 {
 	self = [super init];
 		
+	_baseURL = [inBaseURL retain];
+	
 	NSError *err = nil;
 	_module = [[CXMLDocument alloc] initWithData:inData options:0 error:&err];
 	if (err) {
@@ -37,25 +39,41 @@
 		return nil;
 	}
 		
-	NSData *stylesheetData = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"Global" ofType:@"css"]];
-	
-	DNCSSStylesheet *stylesheet = [[[DNCSSStylesheet alloc] initWithData:stylesheetData
-																 baseURL:nil
-																   error:&err] autorelease];
-	if (!stylesheet) {
+	NSArray *stylesheetLinks = [_module nodesForXPath:@"//link[@rel='stylesheet']" error:&err];
+	if (!stylesheetLinks) {
 		if (outError)
 			*outError = err;
-		NSLog(@"Error loading global stylesheet: %@", err);
+		NSLog(@"Error finding stylesheets: %@", err);
 		[self release];
 		return nil;
 	}
-	_cssContext = [[DNCSSContext alloc] initWithStylesheet:stylesheet];
 
+	_cssContext = [[DNCSSContext alloc] init];
+	
+	for (CXMLElement *linkElement in stylesheetLinks) {
+		NSString *relativePath = [[linkElement attributeForName:@"href"] stringValue];
+		NSURL *stylesheetURL = [[[NSURL alloc] initWithString:relativePath relativeToURL:_baseURL] autorelease];
+		NSData *stylesheetData = [NSData dataWithContentsOfURL:stylesheetURL];
+
+		DNCSSStylesheet *stylesheet = [[[DNCSSStylesheet alloc] initWithData:stylesheetData
+																	 baseURL:nil
+																	   error:&err] autorelease];
+		if (!stylesheet) {
+			if (outError)
+				*outError = err;
+			NSLog(@"Error loading stylesheet %@: %@", relativePath, err);
+			[self release];
+			return nil;
+		}
+		
+		[_cssContext addStylesheet:stylesheet];
+	}
 	
 	return self;
 }
 
 - (void)dealloc {
+	[_baseURL release];
     [_module release];
 	[_stories release];
     [super dealloc];

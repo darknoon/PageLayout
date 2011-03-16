@@ -21,14 +21,16 @@
 @implementation StoryViewController
 @synthesize pages = _pages;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)initWithModulePath:(NSString *)inModulePath;
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-		storyDictionary = [[NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"Story" ofType:@"plist"]] retain];
-    }	
+    self = [super initWithNibName:nil bundle:nil];
+	
+	_modulePath = [inModulePath retain];
+	self.wantsFullScreenLayout = YES;
+	
     return self;
 }
+
 
 - (void)dealloc
 {
@@ -47,7 +49,22 @@
     // Release any cached data, images, etc that aren't in use.
 }
 
+#pragma mark -
+
+
+- (void)singleTap;
+{
+	[self.navigationController setNavigationBarHidden:!self.navigationController.navigationBarHidden animated:YES];
+}
+
 #pragma mark - View lifecycle
+
+- (void)viewWillAppear:(BOOL)animated;
+{
+	[super viewWillAppear:animated];
+	
+	[self.navigationController setNavigationBarHidden:YES animated:animated];
+}
 
 - (void)setupPagesForOrientation:(UIInterfaceOrientation)inInterfaceOrientation;
 {
@@ -86,7 +103,7 @@
 {
     [super viewDidLoad];
 		
-	textLayoutManager = [[DNLayoutManager alloc] init];
+	textLayoutManager = [[DNLayoutManager alloc] initWithModulePath:_modulePath];
 	
 	//TODO: replace with robust layout system...
 	pageScrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
@@ -94,8 +111,12 @@
 	pageScrollView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 	[self.view addSubview:pageScrollView];
 	
+	UITapGestureRecognizer *tapRecognizer = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTap)] autorelease];
+	[pageScrollView addGestureRecognizer:tapRecognizer];
+
 	[self setupPagesForOrientation:self.interfaceOrientation];
 		
+	
 }
 
 - (void)viewDidUnload
@@ -105,7 +126,7 @@
 	textLayoutManager = nil;
 	[pageScrollView release];
 	pageScrollView = nil;
-
+	
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }

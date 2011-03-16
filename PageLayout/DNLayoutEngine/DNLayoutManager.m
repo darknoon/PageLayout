@@ -34,18 +34,22 @@
 @synthesize attributedText = _attributedText;
 
 
-- (id)init;
+- (id)initWithModulePath:(NSString *)inModulePath;
 {
     self = [super init];
     if (!self) return nil;
+	
+	_modulePath = [inModulePath retain];
 	
 	_textFrameViews = [[NSMutableArray alloc] init];
     _frames = [[NSMutableArray alloc] init];
 
 	NSError *error = nil;
 
-	NSString *modulePath = [[NSBundle mainBundle] pathForResource:@"Module" ofType:@"dml"];
-	NSData *moduleData = [[[NSData alloc] initWithContentsOfFile:modulePath] autorelease];
+	NSString *moduleFilePath = [_modulePath stringByAppendingPathComponent:@"Module.dml"];
+	NSData *moduleData = [[[NSData alloc] initWithContentsOfFile:moduleFilePath] autorelease];
+	
+	NSURL *baseURL = [NSURL fileURLWithPath:moduleFilePath];
 	
 	if (!moduleData) {
 		[self release];
@@ -53,7 +57,7 @@
 		return nil;
 	}
 	
-	_module = [[DNLayoutModule alloc] initWithData:moduleData error:&error];
+	_module = [[DNLayoutModule alloc] initWithData:moduleData baseURL:baseURL error:&error];
 
 	if (!_module) {
 		[self release];
