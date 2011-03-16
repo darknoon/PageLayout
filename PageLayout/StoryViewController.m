@@ -63,6 +63,12 @@
 {
 	[super viewWillAppear:animated];
 	
+	pageScrollView.contentOffset = CGPointZero;
+	pageScrollView.contentSize = (CGSize) {
+		.width = [textLayoutManager numberOfPages] * self.view.bounds.size.width,
+		.height = 0,
+	};
+
 	[self.navigationController setNavigationBarHidden:YES animated:animated];
 }
 
